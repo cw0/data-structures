@@ -4,6 +4,7 @@ class AdjacencyMatrix {
     this.vertices = new Map();
     this.verticesList = new Map();
     this.insert.bind(this);
+    this.remove.bind(this);
     this.getEdge.bind(this);
     this.getEdges.bind(this);
   }
@@ -36,6 +37,19 @@ class AdjacencyMatrix {
     this.graph[uIndex][vIndex] = w;
   }
 
+  remove(u) {
+    const uIndex = this.vertices.get(u);
+    
+    this.graph.splice(uIndex, 1);
+    this.graph.map((v) => {
+      if (typeof v[uIndex] !== 'undefined') {
+        v.splice(uIndex, 1);
+      }
+    });
+    this.vertices.delete(u);
+    this.verticesList.delete(uIndex);
+  }
+
   getEdge(u, v) {
     const uIndex = this.vertices.get(u);
     const vIndex = this.vertices.get(v);
@@ -43,12 +57,17 @@ class AdjacencyMatrix {
     try {
       return this.graph[uIndex][vIndex];
     } catch (err) {
-      return undefined;
+      return;
     }    
   }
 
   getEdges(u) {
     const uIndex = this.vertices.get(u);
+    
+    if (typeof uIndex === 'undefined') {
+      return;
+    }
+
     const edges = new Map();
     
     this.graph[uIndex].reduce((accumulator, w, index) => {
@@ -82,3 +101,9 @@ console.log('alice -> bob: ', am.getEdge(alice, bob));
 console.log('david -> alice: ', am.getEdge(david, alice));
 
 console.log('alice getEdges: ', am.getEdges(alice));
+console.log('david getEdges: ', am.getEdges(david));
+
+am.remove(bob);
+am.graph.forEach((vertex) => {
+  console.log(vertex);
+});
