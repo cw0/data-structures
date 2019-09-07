@@ -81,7 +81,7 @@ class AdjacencyMatrix {
   }
 }
 
-//export default AdjacencyMatrix;
+module.exports = AdjacencyMatrix;
 
 const am = new AdjacencyMatrix();
 const alice = { name: 'alice' };
