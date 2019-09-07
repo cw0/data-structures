@@ -17,6 +17,6 @@ const bubbleSort = (input) => {
   }
 
   return input;
-}
+};
 
-console.log(bubbleSort([4,2,8,8,5,7,1]));
+console.log(bubbleSort([4, 2, 8, 8, 5, 7, 1]));

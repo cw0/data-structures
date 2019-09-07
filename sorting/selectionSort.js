@@ -5,7 +5,7 @@ const selectionSort = (input, lastSortedIndex = 0) => {
 
   let minimum = null;
   let minimumIndex = null;
-  
+
   for (let i = lastSortedIndex; i < input.length; i++) {
     if (minimum === null || input[i] < minimum) {
       minimum = input[i];
@@ -20,6 +20,6 @@ const selectionSort = (input, lastSortedIndex = 0) => {
   }
 
   return input;
-}
+};
 
-console.log(selectionSort([4,2,8,8,5,7,1]));
+console.log(selectionSort([4, 2, 8, 8, 5, 7, 1]));

@@ -1,5 +1,5 @@
 class AdjacencyMatrix {
-  constructor () {
+  constructor() {
     this.graph = [];
     this.vertices = new Map();
     this.verticesList = new Map();
@@ -7,12 +7,16 @@ class AdjacencyMatrix {
     this.remove.bind(this);
     this.getEdge.bind(this);
     this.getEdges.bind(this);
+    this.getVertices.bind(this);
+    this.getVertex.bind(this);
   }
 
-  //insert a pair of vertices with a weight
-  insert (u, v, w) {
-    let uIndex, vIndex;
-    //check if u exists
+
+  // insert a pair of vertices with a weight
+  insert(u, v, w) {
+    let uIndex; let
+      vIndex;
+    // check if u exists
     if (!this.vertices.has(u)) {
       uIndex = this.graph.length;
       this.vertices.set(u, uIndex);
@@ -23,7 +27,7 @@ class AdjacencyMatrix {
       uIndex = this.vertices.get(u);
     }
 
-    //check if v exist
+    // check if v exist
     if (!this.vertices.has(v)) {
       vIndex = this.graph.length;
       this.vertices.set(v, vIndex);
@@ -37,9 +41,40 @@ class AdjacencyMatrix {
     this.graph[uIndex][vIndex] = w;
   }
 
+  // TODO finish me
+  addVertex(v) {
+    if (!this.vertices.has(v)) {
+      vIndex = this.graph.length;
+      this.vertices.set(v, vIndex);
+      this.verticesList.set(vIndex, v);
+
+      this.graph.push([]);
+      this.graph.map((edgeList) => {
+        edgeList.push(undefined);
+      });
+    }
+  }
+
+  // TODO finish me & refactor insert to use this helper
+  addEdge(u, v, w) {
+
+  }
+
+  getVertex(name) {
+    const verticesArray = Array.from(this.vertices);
+    const found = verticesArray.filter((vertex) => vertex.name === name);
+    if (found & found.length > 0) {
+      return found[0];
+    }
+  }
+
+  getVertices() {
+    return Array.from(this.vertices);
+  }
+
   remove(u) {
     const uIndex = this.vertices.get(u);
-    
+
     this.graph.splice(uIndex, 1);
     this.graph.map((v) => {
       if (typeof v[uIndex] !== 'undefined') {
@@ -53,25 +88,25 @@ class AdjacencyMatrix {
   getEdge(u, v) {
     const uIndex = this.vertices.get(u);
     const vIndex = this.vertices.get(v);
-    
+
     try {
       return this.graph[uIndex][vIndex];
     } catch (err) {
-      return;
-    }    
+
+    }
   }
 
   getEdges(u) {
     const uIndex = this.vertices.get(u);
-    
+
     if (typeof uIndex === 'undefined') {
       return;
     }
 
     const edges = new Map();
-    
+
     this.graph[uIndex].reduce((accumulator, w, index) => {
-      if (w) {       
+      if (w) {
         accumulator.set(this.verticesList.get(index), w);
       }
       return accumulator;
@@ -82,28 +117,3 @@ class AdjacencyMatrix {
 }
 
 module.exports = AdjacencyMatrix;
-
-const am = new AdjacencyMatrix();
-const alice = { name: 'alice' };
-const bob = { name: 'bob'};
-const chris = { name: 'chris'};
-const david = { name: 'david'};
-
-am.insert (alice, bob, 2);
-am.insert (alice, chris, 1);
-am.insert (bob, chris, 5)
-
-am.graph.forEach((vertex) => {
-  console.log(vertex);
-});
-
-console.log('alice -> bob: ', am.getEdge(alice, bob));
-console.log('david -> alice: ', am.getEdge(david, alice));
-
-console.log('alice getEdges: ', am.getEdges(alice));
-console.log('david getEdges: ', am.getEdges(david));
-
-am.remove(bob);
-am.graph.forEach((vertex) => {
-  console.log(vertex);
-});

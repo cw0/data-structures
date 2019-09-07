@@ -1,19 +1,19 @@
 const mergeSort = (input, left, right) => {
   if (right > left) {
-    let middle = Math.floor(left + (right - left) / 2); 
+    const middle = Math.floor(left + (right - left) / 2);
     mergeSort(input, left, middle);
     mergeSort(input, middle + 1, right);
     merge(input, left, middle, right);
   }
 
   return input;
-}
+};
 
 const merge = (input, left, middle, right) => {
-  let leftLength = middle - left + 1;
-  let rightLength = right - middle;
-  let leftArray = [];
-  let rightArray = [];
+  const leftLength = middle - left + 1;
+  const rightLength = right - middle;
+  const leftArray = [];
+  const rightArray = [];
 
   for (let i = 0; i < leftLength; i++) {
     leftArray[i] = input[left + i];
@@ -49,8 +49,7 @@ const merge = (input, left, middle, right) => {
     j++;
     k++;
   }
-}
+};
 
-const testArray = [4,2,8,8,5,7,1];
+const testArray = [4, 2, 8, 8, 5, 7, 1];
 console.log(mergeSort(testArray, 0, testArray.length - 1));
-
