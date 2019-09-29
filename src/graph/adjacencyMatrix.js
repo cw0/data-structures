@@ -11,7 +11,6 @@ class AdjacencyMatrix {
     this.getVertex.bind(this);
   }
 
-
   // insert a pair of vertices with a weight
   insert(u, v, w) {
     let uIndex; let
@@ -44,14 +43,12 @@ class AdjacencyMatrix {
   // TODO finish me
   addVertex(v) {
     if (!this.vertices.has(v)) {
-      vIndex = this.graph.length;
+      const vIndex = this.graph.length;
       this.vertices.set(v, vIndex);
       this.verticesList.set(vIndex, v);
 
       this.graph.push([]);
-      this.graph.map((edgeList) => {
-        edgeList.push(undefined);
-      });
+      this.graph.map((edgeList) => edgeList.push(undefined));
     }
   }
 
@@ -63,7 +60,7 @@ class AdjacencyMatrix {
   getVertex(name) {
     const verticesArray = Array.from(this.vertices);
     const found = verticesArray.filter((vertex) => vertex.name === name);
-    if (found & found.length > 0) {
+    if (found && found.length > 0) {
       return found[0];
     }
   }
