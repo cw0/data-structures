@@ -59,7 +59,7 @@ class AdjacencyMatrix {
 
   getVertex(name) {
     const verticesArray = Array.from(this.vertices);
-    const found = verticesArray.filter((vertex) => vertex.name === name);
+    const found = verticesArray.filter(vertex => vertex.name === name);
     if (found && found.length > 0) {
       return found[0];
     }
