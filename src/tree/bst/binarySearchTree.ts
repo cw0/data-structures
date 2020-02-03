@@ -31,12 +31,19 @@ export default class BinarySearchTree implements TreeInterface {
     }
   }
 
-  find(value: number) {
-    //TODO use this in our insert & delete
+  find(value: number, root: Node = this.root): Node {
+    if (!root) return undefined;
+    if (root.value === value) return root;
+    if (value < root.value) {
+      return this.find(value, root.left);
+    }
+    return this.find(value, root.right);
   }
 
   remove(value: number): number {
-    throw new Error("Method not implemented.");
+    const toBeRemoved = this.find(value);
+    if (!toBeRemoved) return undefined;
+
   }
 
   preOrderTraversal(): void {
