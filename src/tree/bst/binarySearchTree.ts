@@ -4,7 +4,7 @@ import Node from './node';
 export default class BinarySearchTree implements TreeInterface {
   root: Node;
 
-  insert(value: number, node: Node): void {
+  insert(value: number, node: Node = this.root): void {
     if (!this.root) {
       this.root = new Node(value);
       return;
@@ -41,9 +41,31 @@ export default class BinarySearchTree implements TreeInterface {
   }
 
   remove(value: number): number {
-    const toBeRemoved = this.find(value);
+    let toBeRemoved = this.find(value);
     if (!toBeRemoved) return undefined;
+    if (toBeRemoved.left && !toBeRemoved.right) {
+      toBeRemoved = toBeRemoved.left;
+      return value;
+    }
+    if (toBeRemoved.right && !toBeRemoved.left) {
+      toBeRemoved = toBeRemoved.right;
+      return value;
+    }
+    if (toBeRemoved.left && toBeRemoved.right) {
+      const temp = toBeRemoved.left;
+      let current = toBeRemoved.right;
 
+      while (current.left) {
+        current = current.left;
+      }
+
+      current.left = temp;
+      toBeRemoved = toBeRemoved.right;
+      return value;
+    }
+
+    toBeRemoved = undefined;
+    return value;
   }
 
   preOrderTraversal(): void {
